@@ -1,17 +1,18 @@
 from typing import Callable
+import functools
 
 
 def cache(func: Callable) -> Callable:
-    res_lst = {}
-
+    cache_dict = {}
+    @functools.wraps
     def inner(*args, **kwargs) -> None:
         key = (args, tuple(sorted(kwargs.items())))
-        if key in res_lst:
+        if key in cache_dict:
             print("Getting from cache")
-            return res_lst[key]
-        elif key not in res_lst:
+            return cache_dict[key]
+        elif key not in cache_dict:
             res = func(*args, **kwargs)
-            res_lst[key] = res
+            cache_dict[key] = res
             print("Calculating new result")
             return res
     return inner

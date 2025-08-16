@@ -4,6 +4,7 @@ import functools
 
 def cache(func: Callable) -> Callable:
     cache_dict = {}
+
     @functools.wraps
     def inner(*args, **kwargs) -> None:
         key = (args, tuple(sorted(kwargs.items())))

@@ -3,6 +3,7 @@ from typing import Callable
 
 def cache(func: Callable) -> Callable:
     res_lst = {}
+
     def inner(*args, **kwargs) -> None:
         key = (args, tuple(sorted(kwargs.items())))
         if key in res_lst:

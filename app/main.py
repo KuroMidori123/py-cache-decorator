@@ -1,11 +1,12 @@
 from typing import Callable
-import functools
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
     cache_dict = {}
 
-    @functools.wraps
+
+    @wraps(func)
     def inner(*args, **kwargs) -> None:
         key = (args, tuple(sorted(kwargs.items())))
         if key in cache_dict:
